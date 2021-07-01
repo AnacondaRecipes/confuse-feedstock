@@ -19,6 +19,8 @@ requirements:
     - python
     - pip
     - flit-core >=2,<4
+    - setuptools
+    - wheel
   run:
     - python
     - pyyaml
@@ -26,6 +28,10 @@ requirements:
 test:
   imports:
     - confuse
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/beetbox/confuse
