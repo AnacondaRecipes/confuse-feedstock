@@ -1,26 +1,25 @@
 {% set name = "confuse" %}
-{% set version = "1.5.0" %}
+{% set version = "2.0.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 92fbca1c70611120ea722372e0c071c0d342a75f796b4bde4bf0348ea49f022e
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 7379a2ad49aaa862b79600cc070260c1b7974d349f4fa5e01f9afa6c4dd0611f
 
 build:
   noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: true  # [py<36]
 
 requirements:
   host:
     - python
     - pip
     - flit-core >=2,<4
-    - setuptools
-    - wheel
   run:
     - python
     - pyyaml
@@ -39,7 +38,6 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: painless YAML configuration
-
   description: |
     Confuse is a configuration library for Python that uses YAML.
     It takes care of defaults, overrides, type checking, command-line
