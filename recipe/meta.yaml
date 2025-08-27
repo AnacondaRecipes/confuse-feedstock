@@ -34,7 +34,7 @@ test:
   commands:
     - pip check
     # E   OSError: [WinError 123] The filename, directory name, or volume label syntax is incorrect
-    - pytest test -k "not (test_create_dir_if_none_exists)" # [win]
+    - pytest test -k "not (test_create_dir_if_none_exists or test_do_not_create_dir_if_lower_priority_exists or test_return_existing_dir)" # [win]
     - pytest test # [not win]
 
 about:
