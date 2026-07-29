@@ -2,7 +2,7 @@
 {% set version = "2.2.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -24,6 +24,11 @@ requirements:
     - pyyaml
     - typing_extensions >=4.4  # [py<313]
 
+# E   OSError: [WinError 123] The filename, directory name, or volume label syntax is incorrect
+{% set deselected_tests_win = " not test_create_dir_if_none_exists" %}  # [win]
+{% set deselected_tests_win = deselected_tests_win + " and not test_do_not_create_dir_if_lower_priority_exists" %}  # [win]
+{% set deselected_tests_win = deselected_tests_win + " and not test_return_existing_dir" %}  # [win]
+
 test:
   source_files:
     - test
@@ -34,8 +39,7 @@ test:
     - pytest
   commands:
     - pip check
-    # E   OSError: [WinError 123] The filename, directory name, or volume label syntax is incorrect
-    - pytest test -k "not (test_create_dir_if_none_exists or test_do_not_create_dir_if_lower_priority_exists or test_return_existing_dir)"  # [win]
+    - pytest test -k "{{ deselected_tests_win }}"  # [win]
     - pytest test  # [not win]
 
 about:
