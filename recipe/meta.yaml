@@ -58,3 +58,6 @@ about:
 extra:
   recipe-maintainers:
     - philip-khor
+  skip-lints:
+    # doc_url is redirecting
+    - reachable_url
